@@ -25,16 +25,6 @@ Real-time crypto order book collector and visualizer.
 
 ---
 
-## Project Structure
-
-crypto_orderbook/
-├─ order_book_full.py # Full depth in-memory order book (price→size)
-├─ run_ws_full.py # WebSocket collector → CSV + depth.json (atomic)
-├─ live_plot.py # Live bid/ask (+spread) time-series from CSV
-├─ live_depth_plot.py # Live mirrored depth chart from depth.json
-├─ requirements.txt # websocket-client, matplotlib (add others as needed)
-└─ README.md # this file
-
 ## Quick Start
 
 ### 1. Setup (venv recommended)
@@ -73,7 +63,7 @@ tob_ws_full.csv — time series of bid/ask/spread/mid
 
 depth.json — atomic snapshots of top N book levels (default 40)
 
-3. Live plots in separate terminals
+### 3. Live plots in separate terminals
 
 Bid/Ask time-series (from CSV):
 
@@ -148,7 +138,7 @@ ts_iso,provider,symbol,bid,ask,spread,mid
 2025-08-27T23:45:13.149556+00:00,coinbase,BTC-USD,111982.44,111982.45,0.01,111982.445
 ...
 
-Troubleshooting
+## Troubleshooting
 
 No depth.json appears:
 Ensure you’re running run_ws_full.py (not run_ws.py). It prints [DEBUG] wrote depth.json when dumping.
@@ -160,7 +150,7 @@ You opened it mid-write; the writer is atomic, but if you use an old file, resta
 No messages / timeouts:
 The collector handles timeouts with pings and reconnection. If your network blocks Coinbase WS intermittently, try again or switch product (e.g., ETH-USD).
 
-Roadmap (nice upgrades)
+## Roadmap (nice upgrades)
 
 Latency analyzer: capture per-message receive timestamps, compute mean/median/p99 latency & throughput.
 
@@ -175,7 +165,3 @@ Built by Jose Falconi-Cavallini — real-time data, systems, and trading-adjacen
 GitHub: https://github.com/jfalconi-cavallini
 
 LinkedIn: https://www.linkedin.com/in/jose-falconi-cavallini/
-
-```
-
-```
