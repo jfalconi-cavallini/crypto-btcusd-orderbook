@@ -1,34 +1,32 @@
-Crypto Order Book — Live Top-of-Book & Depth Chart
+# Crypto Order Book — Live Top-of-Book & Depth Chart
+
+![Example](images/Crypto-BTCUSD-Orderbook.png)
 
 Real-time crypto order book collector and visualizer.
 
-Streams Coinbase level2 market data over WebSocket
+- Streams Coinbase **level2** market data over **WebSocket**
+- Maintains full price-level depth in memory
+- Logs top-of-book (bid/ask/spread/mid) to CSV
+- Exports depth snapshots to `depth.json` (atomic)
+- Live plots for **bid/ask** (time series) and **depth** (mirrored book)
 
-Maintains full price-level depth in memory
+> Built to showcase networking, messaging, and financial data processing for trading interviews.
 
-Logs top-of-book (bid/ask/spread/mid) to CSV
+---
 
-Exports depth snapshots to depth.json (atomic)
+## Features
 
-Live plots for bid/ask (time series) and depth (mirrored book)
+- ✅ Full-depth order book (`price → size`) with best bid/ask tracking
+- ✅ WebSocket subscribe + incremental updates (`snapshot` / `l2update`)
+- ✅ Top-of-book CSV: `ts_iso,provider,symbol,bid,ask,spread,mid`
+- ✅ Atomic `depth.json` writes to avoid partial reads
+- ✅ Live **bid/ask plot** + **mirrored depth plot**
+- ✅ Robust: handles timeouts, pings, reconnection
 
-Built to showcase networking, messaging, and financial data processing for trading interviews.
+---
 
-Features
+## Project Structure
 
-✅ Full-depth order book (price → size) with best bid/ask tracking
-
-✅ WebSocket subscribe + incremental updates (snapshot / l2update)
-
-✅ Top-of-book CSV: ts_iso,provider,symbol,bid,ask,spread,mid
-
-✅ Atomic depth.json writes to avoid partial reads
-
-✅ Live bid/ask plot + mirrored depth plot
-
-✅ Robust: handles timeouts, pings, reconnection
-
-Project Structure
 crypto_orderbook/
 ├─ order_book_full.py # Full depth in-memory order book (price→size)
 ├─ run_ws_full.py # WebSocket collector → CSV + depth.json (atomic)
@@ -37,13 +35,16 @@ crypto_orderbook/
 ├─ requirements.txt # websocket-client, matplotlib (add others as needed)
 └─ README.md # this file
 
-Quick Start
+## Quick Start
 
-1. Setup (venv recommended)
+### 1. Setup (venv recommended)
+
+```bash
    python3 -m venv venv
    source venv/bin/activate
    pip install --upgrade pip
    pip install -r requirements.txt
+```
 
 Minimal requirements.txt:
 
@@ -52,9 +53,9 @@ matplotlib
 
 Python 3.10+ recommended.
 
-2. Run the collector (WebSocket → CSV + depth.json)
+### 2. Run the collector (WebSocket → CSV + depth.json)
 
-# Terminal A
+#### Terminal A
 
 python run_ws_full.py BTC-USD tob_ws_full.csv depth.json
 
@@ -76,13 +77,13 @@ depth.json — atomic snapshots of top N book levels (default 40)
 
 Bid/Ask time-series (from CSV):
 
-# Terminal B
+#### Terminal B
 
 python live_plot.py tob_ws_full.csv
 
 Mirrored depth chart (from depth.json):
 
-# Terminal C
+#### Terminal C
 
 python live_depth_plot.py depth.json
 
@@ -115,7 +116,7 @@ Usage:
 
 python run_ws_full.py <PRODUCT> <out_csv> [depth_json_path]
 
-# Example:
+#### Example:
 
 python run_ws_full.py BTC-USD tob_ws_full.csv depth.json
 
@@ -147,8 +148,6 @@ ts_iso,provider,symbol,bid,ask,spread,mid
 2025-08-27T23:45:13.149556+00:00,coinbase,BTC-USD,111982.44,111982.45,0.01,111982.445
 ...
 
-![Example](images/Crypto-BTCUSD-Orderbook.png)
-
 Troubleshooting
 
 No depth.json appears:
@@ -176,3 +175,7 @@ Built by Jose Falconi-Cavallini — real-time data, systems, and trading-adjacen
 GitHub: https://github.com/jfalconi-cavallini
 
 LinkedIn: https://www.linkedin.com/in/jose-falconi-cavallini/
+
+```
+
+```
